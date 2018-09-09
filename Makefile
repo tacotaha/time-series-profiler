@@ -7,11 +7,11 @@ all: profiler
 profiler: main.o profiler.o
 	$(CC) main.o profiler.o -o profile
 
-main.o: Main.c
-	$(CC) -c Main.c -o main.o
+main.o: src/Main.c
+	$(CC) -c src/Main.c -o main.o
 
-profiler.o: Profiler.c Profiler.h
-	$(CC) -c Profiler.c -o profiler.o
+profiler.o: src/Profiler.c src/Profiler.h
+	$(CC) -c src/Profiler.c -o profiler.o
 
 clean:
 	\rm -f $(EXEC) *.o *~
