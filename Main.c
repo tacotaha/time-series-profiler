@@ -19,7 +19,6 @@ int main(int argc, char* argv[]){
     char* program = NULL, *argument = NULL;
     pid_t pid;
 
-
     if(argc < 2){
         printf("Please specify a program to profile\n");
         exit(1);

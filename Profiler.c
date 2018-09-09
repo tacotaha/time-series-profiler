@@ -11,7 +11,7 @@
 
 
 int get_mem_usage(pid_t pid){
-    int fd, data, stack;
+    int fd = 0, data = 0, stack = 0;
     char buffer[4096], status_file[4096];
     char* virtual_memory = NULL;
 
