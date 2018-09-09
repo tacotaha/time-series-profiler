@@ -1,17 +1,23 @@
 CC=gcc
 CFLAGS=-Wall -Werror -std=c99 -pedantic
-EXEC=profile
+EXEC=profile memhog
+OBJ=main.o meminfo.o memhog.o
+all: profiler memhog 
 
-all: profiler 
+profiler: main.o meminfo.o
+	$(CC) main.o meminfo.o -o profile
 
-profiler: main.o profiler.o
-	$(CC) main.o profiler.o -o profile
+memhog: meminfo.o memhog.o
+	$(CC) meminfo.o memhog.o -o memhog
 
 main.o: src/Main.c
 	$(CC) -c src/Main.c -o main.o
 
-profiler.o: src/Profiler.c src/Profiler.h
-	$(CC) -c src/Profiler.c -o profiler.o
+meminfo.o: src/Meminfo.c src/Meminfo.h
+	$(CC) -c src/Meminfo.c -o meminfo.o
+
+memhog.o: tests/MemHog.c
+	$(CC) -c tests/MemHog.c -o memhog.o
 
 clean:
-	\rm -f $(EXEC) *.o *~
+	\rm -f $(EXEC) $(OBJ) *~
