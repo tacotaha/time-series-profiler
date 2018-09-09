@@ -16,10 +16,20 @@
 
 int main(int argc, char* argv[]){ 
     int status = 0, mem = 0, i = 0;
-    const char* program = "/bin/sleep";
-    const char* argument = "5";
+    char* program = NULL, *argument = NULL;
     pid_t pid;
-   
+
+
+    if(argc < 2){
+        printf("Please specify a program to profile\n");
+        exit(1);
+    }else if(argc == 2)
+        program = argv[1];
+    else{
+        program = argv[1];
+        argument = argv[2];
+    }
+ 
     printf("Time,Memory\n");
 
     switch((pid = fork())){
@@ -36,13 +46,13 @@ int main(int argc, char* argv[]){
         }else printf("Child process started: status = %d\n", status);
         break; 
     default:
-        /* Parent process. We'll be montoring the child here */       
-        printf("Parent process: pid of child = %d\n", pid);
+        /* Parent process. We'll be montoring the child here */ 
         while(waitpid(pid, 0, WNOHANG) >= 0){
             usleep(GRAN * 1000); // 1000ns = 1ms
             i += 1;
             mem = get_mem_usage(pid);
-            printf("%.2lf,%d\n", GRAN*i*0.001, mem);
+            if(mem > 0)
+                printf("%.2lf,%d\n", GRAN*i*0.001, mem);
         }
         break;
     }
