@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
         break; 
     case 0:
         /* Child process. We'll be running the program here */
-        status = execl(program, program, argument, (char*) NULL);
+        status = execlp(program, program, argument, (char*) NULL);
         if(status < 0){
             printf("Failed to start program!\n");
             exit(1);
