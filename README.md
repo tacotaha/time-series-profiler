@@ -3,7 +3,7 @@
 
 ## Description
 
-Given an executable, this tool runs it and queries prov cs about ifddexecution throughout its runtime. The profiler outputs a comma separated stream of data to stdout which can be redirected to a file for later analysis
+Given an executable, this tool runs it and queries ```/proc``` for information about the process throughout its execuition. The profiler  conveniently outputs a comma-separated stream of data to stdout which can be redirected to a file for later analysis
 
 ## Installation
 
