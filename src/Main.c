@@ -51,8 +51,7 @@ int main(int argc, char* argv[]) {
     default:
       /* Parent process. We'll be montoring the child here */
       cpu.pid = pid;
-      while (waitpid(pid, 0, WNOHANG) >= 0) {
-        usleep(GRAN * 1000);  // 1000ns = 1ms
+      while (waitpid(pid, 0, WNOHANG) >= 0){
         i += 1;
         get_mem_usage(&mem, pid);
         get_cpu_usage(&cpu);
