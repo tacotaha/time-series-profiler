@@ -18,6 +18,7 @@
 
 int main(int argc, char* argv[]) {
   int status = 0, total_mem_usage = 0, i = 0;
+  FILE* fp = NULL;
   char *program = NULL, *argument = NULL;
   pid_t pid;
   mem_usage_t mem;
@@ -25,16 +26,14 @@ int main(int argc, char* argv[]) {
 
   if (argc < 2) {
     printf("Please specify a program to profile\n");
-    exit(1);
+    return -1;
   } else if (argc == 2)
     program = argv[1];
   else {
     program = argv[1];
     argument = argv[2];
   }
-
-  printf("Time,Memory,CPU (User), CPU (System)\n");
-
+  
   switch ((pid = fork())) {
     case -1:
       /* Error Forking */
@@ -50,16 +49,20 @@ int main(int argc, char* argv[]) {
       break;
     default:
       /* Parent process. We'll be montoring the child here */
+      if((fp = fopen("output.csv", "w")) == NULL) exit(1);
+      fprintf(fp,"Time,Memory,CPU (User), CPU (System)\n");
       cpu.pid = pid;
       while (waitpid(pid, 0, WNOHANG) >= 0){
         i += 1;
         get_mem_usage(&mem, pid);
         get_cpu_usage(&cpu);
         total_mem_usage = mem.vm_stack_kb + mem.vm_data_kb;
-        printf("%.2lf,%d,%.2lf,%.2lf\n", GRAN * i * 0.001, total_mem_usage, cpu.user, cpu.system);
+        fprintf(fp,"%.2lf,%d,%.2lf,%.2lf\n", GRAN * i * 0.001, 
+                total_mem_usage, cpu.user, cpu.system);
       }
+      fclose(fp);
       break;
   }
-
+     
   return 0;
 }
