@@ -3,7 +3,7 @@
 
 ## Description
 
-Given an executable, this tool runs it and queries ```/proc``` for information about the process throughout its execuition. The profiler conveniently outputs a comma-separated csv file ```output.csv``` which can be used for later analysis
+Given an executable, this tool runs it and queries ```/proc``` for information about the process throughout its execuition. The profiler conveniently outputs a comma-separated file ```output.csv``` which can be used for later analysis
 
 ## Installation
 
