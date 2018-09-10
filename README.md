@@ -3,7 +3,7 @@
 
 ## Description
 
-Given an executable, this tool runs it and queries ```/proc``` for information about the process throughout its execuition. The profiler  conveniently outputs a comma-separated stream of data to stdout which can be redirected to a file for later analysis
+Given an executable, this tool runs it and queries ```/proc``` for information about the process throughout its execuition. The profiler conveniently outputs a comma-separated csv file ```output.csv``` which can be used for later analysis
 
 ## Installation
 
@@ -18,5 +18,5 @@ GNU/Linux & OS X:
 
 The program expects as arguments the path to an executable and optionally an argument to run along the executable. For example
 ```
-    ./profile sleep 1 > outout.csv
+    ./profile ls -al
 ```
