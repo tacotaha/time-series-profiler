@@ -11,6 +11,7 @@
 #include <unistd.h>
 
 #include "Meminfo.h"
+#include "CPUinfo.h"
 
 /* Time in between queries (in milliseonds) */
 #define GRAN 50
@@ -20,6 +21,7 @@ int main(int argc, char* argv[]) {
   char *program = NULL, *argument = NULL;
   pid_t pid;
   mem_usage_t mem;
+  cpu_usage_t cpu;
 
   if (argc < 2) {
     printf("Please specify a program to profile\n");
@@ -31,7 +33,7 @@ int main(int argc, char* argv[]) {
     argument = argv[2];
   }
 
-  printf("Time,Memory\n");
+  printf("Time,Memory,CPU (User), CPU (System)\n");
 
   switch ((pid = fork())) {
     case -1:
@@ -48,12 +50,14 @@ int main(int argc, char* argv[]) {
       break;
     default:
       /* Parent process. We'll be montoring the child here */
+      cpu.pid = pid;
       while (waitpid(pid, 0, WNOHANG) >= 0) {
         usleep(GRAN * 1000);  // 1000ns = 1ms
         i += 1;
         get_mem_usage(&mem, pid);
+        get_cpu_usage(&cpu);
         total_mem_usage = mem.vm_stack_kb + mem.vm_data_kb;
-        printf("%.2lf,%d\n", GRAN * i * 0.001, total_mem_usage);
+        printf("%.2lf,%d,%.2lf,%.2lf\n", GRAN * i * 0.001, total_mem_usage, cpu.user, cpu.system);
       }
       break;
   }
