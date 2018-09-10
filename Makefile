@@ -1,17 +1,20 @@
 CC=gcc
-CFLAGS=-Wall -Werror -std=c99 -pedantic
+CFLAGS=-g -Wall -Werror -std=c99 -pedantic
 EXEC=profile memhog
-OBJ=main.o meminfo.o memhog.o
+OBJ=main.o meminfo.o cpuinfo.o memhog.o
 all: profiler memhog 
 
-profiler: main.o meminfo.o
-	$(CC) main.o meminfo.o -o profile
+profiler: main.o cpuinfo.o meminfo.o
+	$(CC) main.o cpuinfo.o meminfo.o -o profile
 
-memhog: meminfo.o memhog.o
-	$(CC) meminfo.o memhog.o -o memhog
+memhog: meminfo.o cpuinfo.o memhog.o
+	$(CC) meminfo.o cpuinfo.o memhog.o -o memhog
 
 main.o: src/Main.c
 	$(CC) -c src/Main.c -o main.o
+
+cpuinfo.o: src/CPUinfo.c src/CPUinfo.h
+	$(CC) -c src/CPUinfo.c -o cpuinfo.o
 
 meminfo.o: src/Meminfo.c src/Meminfo.h
 	$(CC) -c src/Meminfo.c -o meminfo.o
