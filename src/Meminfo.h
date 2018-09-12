@@ -5,6 +5,7 @@
 #define BUF 4096
 
 typedef struct mem_usage_t{
+    pid_t pid;
     unsigned long vm_stack_kb;
     unsigned long vm_data_kb; 
 }mem_usage_t;
