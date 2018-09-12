@@ -10,13 +10,13 @@
 
 #include "Meminfo.h"
 
-int get_mem_usage(mem_usage_t *mem, pid_t pid) {
+int get_mem_usage(mem_usage_t *mem) {
   int fd = 0;
   char buf[BUF], proc_file[BUF], *vm;
   short found_data = 0, found_stack = 0;
   assert(mem != NULL);
 
-  sprintf(proc_file, "/proc/%d/status", pid);
+  sprintf(proc_file, "/proc/%d/status", mem->pid);
   if ((fd = open(proc_file, O_RDONLY)) < 0) return -1;
   read(fd, buf, BUF - 1);
   buf[BUF - 1] = 0x0;
