@@ -22,9 +22,9 @@ int main() {
 
     for (int j = 0; j < entrySize; j++) buffer[i][j] = 0;
 
-    cpu.pid = pid;
+    cpu.pid = mem.pid = pid;
     get_cpu_usage(&cpu);
-    get_mem_usage(&mem, pid);
+    get_mem_usage(&mem);
     printf("%2d: Current memory usage: data = %6ld KB, stack = %6ld KB\n", 
             i, mem.vm_data_kb, mem.vm_stack_kb);
     printf("%2d: Current CPU usage: user = %.2lf\%, system = %.2lf\%\n", 
