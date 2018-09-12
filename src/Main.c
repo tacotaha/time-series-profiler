@@ -51,10 +51,10 @@ int main(int argc, char* argv[]) {
       /* Parent process. We'll be montoring the child here */
       if((fp = fopen("output.csv", "w")) == NULL) exit(1);
       fprintf(fp,"Time,Memory,CPU (User), CPU (System)\n");
-      cpu.pid = pid;
+      mem.pid = cpu.pid = pid;
       while (waitpid(pid, 0, WNOHANG) >= 0){
         i += 1;
-        get_mem_usage(&mem, pid);
+        get_mem_usage(&mem);
         get_cpu_usage(&cpu);
         total_mem_usage = mem.vm_stack_kb + mem.vm_data_kb;
         fprintf(fp,"%.2lf,%d,%.2lf,%.2lf\n", GRAN * i * 0.001, 

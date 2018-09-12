@@ -17,6 +17,6 @@ typedef struct mem_usage_t{
 * VmRSS:          5560 kB
 * VmSize:         5560 kB
 */
-int get_mem_usage(mem_usage_t*, pid_t);
+int get_mem_usage(mem_usage_t*);
 
 #endif /* MEMINFO_H */
