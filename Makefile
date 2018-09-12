@@ -23,4 +23,4 @@ memhog.o: tests/MemHog.c
 	$(CC) -c tests/MemHog.c -o memhog.o
 
 clean:
-	\rm -f $(EXEC) $(OBJ) *~
+	\rm -f $(EXEC) $(OBJ) *.csv *~
