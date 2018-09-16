@@ -44,7 +44,7 @@ int get_total_time(ulong* time){
  
   read(fd, buffer, BUF - 1);
   buffer[BUF - 1] = 0x0;
-  sscanf(buffer,"%*s %llu %llu %llu %llu",&user,&nice,&system,&idle);
+  sscanf(buffer,"%*s %lu %lu %lu %lu",&user,&nice,&system,&idle);
   *time = user + nice + system + idle;
   close(fd);
 
@@ -64,8 +64,8 @@ int cpu_usage(pid_t pid, ulong *user, ulong* system){
    fscanf(fp,
     "%*d %*s %*c %*d " //pid,command,state,ppid
     "%*d %*d %*d %*d %*lu %*lu %*lu %*lu %*lu "
-    "%Lu %Lu " //usertime,systemtime
-    "%*Lu %*Lu %*ld %*ld %*ld %*ld %*Lu "
+    "%lu %lu " //usertime,systemtime
+    "%*lu %*lu %*ld %*ld %*ld %*ld %*lu "
     "%*lu", //virtual memory size in bytes
     user, system);
     
