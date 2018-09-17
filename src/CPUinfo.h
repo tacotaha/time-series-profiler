@@ -1,14 +1,17 @@
 #ifndef CPUINFO_H
-#define CPUINFO_H 
+#define CPUINFO_H
 
 #include <sys/types.h>
 #define BUF 4096
 
-typedef struct cpu_usage_t{
-    pid_t pid;;
-    double user;
-    double system;  
-}cpu_usage_t;
+typedef struct cpu_usage_t {
+  pid_t pid;
+  long unsigned int utime_ticks;
+  long int cutime_ticks;
+  long unsigned int stime_ticks;
+  long int cstime_ticks;
+  long unsigned int cpu_total_time;
+} cpu_usage_t;
 
 /*
 Extract the CPU usage from lines in /proc/pid/stat with the fields
@@ -34,20 +37,21 @@ Extract the CPU usage from lines in /proc/pid/stat with the fields
   cstime        kernel mode jiffies with child's
 ..............................................................................
 */
-int get_cpu_usage(cpu_usage_t*);
+int calculate_cpu_usage(cpu_usage_t*);
 
 /*
- * Gets the cummulative CPU
- * time for the system
- *
+ * calculates the elapsed CPU usage (%) between 2 measuring points.
+ */
+void get_cpu_usage(const cpu_usage_t*, const cpu_usage_t*, double*, double*);
+
+/*
+ * Calculates the total CPU time in ticks
  */
 int get_total_time(ulong*);
 
-/* 
- * Uses /proc/pid/stat to extract the  
- * user and system cpu time for the
- * process
+/*
+ * print the cpu_usage_t structure contents to stdout
  */
-int cpu_usage(pid_t, ulong*, ulong*);
+void print_cpu(const cpu_usage_t*);
 
 #endif /* CPUINFO_H */
