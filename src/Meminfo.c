@@ -31,6 +31,7 @@ int get_mem_usage(mem_usage_t *mem) {
   vm = strstr(buf, "VmStk:");
   if (vm) {
     sscanf(vm, "%*s %lu", &(mem->vm_stack_kb));
+    // mem->vm_stack_kb *= getpagesize();
     found_stack = 1;
   }
 
