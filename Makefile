@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall -Werror -std=c99 -pedantic
 EXEC=profile memhog
 OBJ=main.o meminfo.o cpuinfo.o memhog.o
-all: profiler memhog 
+all: profiler memhog
 
 profiler: main.o cpuinfo.o meminfo.o
 	$(CC) main.o cpuinfo.o meminfo.o -o profile
