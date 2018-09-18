@@ -7,9 +7,9 @@
 typedef struct cpu_usage_t {
   pid_t pid;
   long unsigned int utime_ticks;
-  long int cutime_ticks;
+  long unsigned int cutime_ticks;
   long unsigned int stime_ticks;
-  long int cstime_ticks;
+  long unsigned int cstime_ticks;
   long unsigned int cpu_total_time;
 } cpu_usage_t;
 

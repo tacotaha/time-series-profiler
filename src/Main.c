@@ -14,7 +14,7 @@
 #include "Meminfo.h"
 
 /* Time in between queries (in microseconds) */
-#define GRAN 100000 //0.1 seconds
+#define GRAN 100000  // 0.1 seconds
 #define MS_IN_S 1000000.0
 
 int main(int argc, char* argv[]) {
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
       while (waitpid(pid, 0, WNOHANG) >= 0) {
         i += 1;
         get_mem_usage(&mem);
-        calculate_cpu_usage(&initial); 
+        calculate_cpu_usage(&initial);
         usleep(GRAN);
         calculate_cpu_usage(&final);
         get_cpu_usage(&final, &initial, &cpu_user, &cpu_system);

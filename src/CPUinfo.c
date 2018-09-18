@@ -15,14 +15,13 @@ int calculate_cpu_usage(cpu_usage_t* cpu) {
   FILE* fp;
 
   sprintf(proc_file, "/proc/%d/stat", cpu->pid);
-  if ((fp = fopen(proc_file, "r")) == NULL)  
-    return -1;
+  if ((fp = fopen(proc_file, "r")) == NULL) return -1;
 
   fscanf(fp,
          "%*d %*s %*c %*d "  // pid,command,state,ppid
          "%*d %*d %*d %*d %*lu %*lu %*lu %*lu %*lu "
-         "%Lu %Lu"  // usertime,systemtime
-         "%Lu %Lu %*ld %*ld %*ld %*ld %*Lu "
+         "%lu %lu"  // usertime,systemtime
+         "%lu %lu %*ld %*ld %*ld %*ld %*Lu "
          "%*lu",  // virtual memory size in bytes
          &(cpu->utime_ticks), &(cpu->stime_ticks), &(cpu->cutime_ticks),
          &(cpu->cstime_ticks));
@@ -69,6 +68,7 @@ void print_cpu(const cpu_usage_t* cpu) {
   printf("PID: %d\n", cpu->pid);
   printf("utime_ticks: %lu\n", cpu->utime_ticks);
   printf("cutime_ticks: %lu\n", cpu->cutime_ticks);
+  printf("stime_ticks: %lu\n", cpu->stime_ticks);
   printf("cstime_ticks: %lu\n", cpu->cstime_ticks);
   printf("total time: %lu\n", cpu->cpu_total_time);
   printf("==================================\n");
