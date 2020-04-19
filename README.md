@@ -10,7 +10,7 @@ Given an executable, this tool runs it and queries ```/proc``` for information a
 GNU/Linux & OS X:
 
 ```
-  $ git clone https://github.com/tazzaoui/time-series-profiler.git
+  $ git clone https://github.com/tacotaha/time-series-profiler.git
   $ cd time-series-profiler
   $ make
 ```
